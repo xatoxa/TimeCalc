@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TimeCalc</string>
+    <string name="btnResult">=</string>
+    <string name="eTxtResult">Результат</string>
+    <string name="SwitchPlus">Сложить</string>
+    <string name="SwitchMinus">Вычесть</string>
+    <string name="Plus">+</string>
+    <string name="Minus">-</string>
+    <string name="eTxtTimeHint">Время в формате чч:мм[:cc]</string>
+    <string name="Reverse">Поменять местами</string>
+    <string name="eTxtTime1">Введите время 1</string>
+    <string name="eTxtTime2">Введите время 2</string>
+</resources>
