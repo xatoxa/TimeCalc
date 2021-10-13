@@ -9,14 +9,16 @@
 
 
     <EditText
-        android:id="@+id/editTextTime1"
+        android:id="@+id/eTxtTime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
+        android:gravity="center"
         android:autofillHints="@string/eTxtTimeHint"
         android:ems="10"
         android:inputType="time"
         android:textSize="18sp"
+        android:maxLength="8"
         android:hint="@string/eTxtTime1"
         app:layout_constraintBottom_toTopOf="@+id/InnerConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,20 +32,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTime2"
+        app:layout_constraintBottom_toTopOf="@+id/eTxtTime2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime1">
+        app:layout_constraintTop_toBottomOf="@+id/eTxtTime1">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch1"
+            android:id="@+id/switchSign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/SwitchPlus"
             android:textOff="@string/Minus"
             android:textOn="@string/Plus"
+            app:showText="true"
             android:textSize="18sp"
             android:theme="@style/SignSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +60,7 @@
             android:layout_height="68dp"
             android:contentDescription="@string/Reverse"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/switch1"
+            app:layout_constraintEnd_toStartOf="@+id/switchSign"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
@@ -65,46 +68,47 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/editTextTime2"
+        android:id="@+id/eTxtTime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:autofillHints="@string/eTxtTimeHint"
         android:ems="10"
+        android:maxLength="8"
+        android:gravity="center"
         android:inputType="time"
         android:textSize="18sp"
         android:hint="@string/eTxtTime2"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/InnerConstraintLayout" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:enabled="false"
+        android:maxLength="8"
         android:text="@string/btnResult"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTimeResult"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime2" />
+        app:layout_constraintTop_toBottomOf="@+id/eTxtTime2" />
 
-    <EditText
-        android:id="@+id/editTextTimeResult"
+    <TextView
+        android:id="@+id/txtViewResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:autofillHints="@string/eTxtTimeHint"
+        android:maxLength="8"
         android:ems="10"
-        android:enabled="false"
-        android:inputType="time"
         android:textSize="18sp"
+        android:gravity="center"
         android:hint="@string/eTxtResult"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCalculate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
