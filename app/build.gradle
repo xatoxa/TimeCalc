@@ -10,8 +10,8 @@ android {
         applicationId "com.example.timecalc"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 1
-        versionName "0.1b"
+        versionCode 2
+        versionName "0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,4 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'ru.tinkoff.decoro:decoro:1.1.1'
+
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:25.1.0'
 }

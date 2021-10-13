@@ -7,24 +7,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <EditText
-        android:id="@+id/eTxtTime1"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/eTxtLayoutTime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:gravity="center"
-        android:autofillHints="@string/eTxtTimeHint"
-        android:ems="10"
-        android:inputType="time"
-        android:textSize="18sp"
-        android:maxLength="8"
-        android:hint="@string/eTxtTime1"
         app:layout_constraintBottom_toTopOf="@+id/InnerConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtTime1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:autofillHints="@string/eTxtTimeHint"
+            android:ems="10"
+            android:inputType="time"
+            android:textSize="18sp"
+            android:maxLength="8"
+            android:hint="@string/eTxtTime1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/InnerConstraintLayout"
@@ -32,11 +37,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/eTxtTime2"
+        app:layout_constraintBottom_toTopOf="@+id/eTxtLayoutTime2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eTxtTime1">
+        app:layout_constraintTop_toBottomOf="@+id/eTxtLayoutTime1">
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchSign"
@@ -64,25 +69,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/eTxtTime2"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/eTxtLayoutTime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:autofillHints="@string/eTxtTimeHint"
-        android:ems="10"
-        android:maxLength="8"
-        android:gravity="center"
-        android:inputType="time"
-        android:textSize="18sp"
-        android:hint="@string/eTxtTime2"
         app:layout_constraintBottom_toTopOf="@+id/btnCalculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InnerConstraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerConstraintLayout"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/eTxtTimeHint"
+            android:ems="10"
+            android:maxLength="8"
+            android:gravity="center"
+            android:inputType="time"
+            android:textSize="18sp"
+            android:hint="@string/eTxtTime2" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnCalculate"
@@ -95,7 +105,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtViewResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eTxtTime2" />
+        app:layout_constraintTop_toBottomOf="@+id/eTxtLayoutTime2" />
 
     <TextView
         android:id="@+id/txtViewResult"
