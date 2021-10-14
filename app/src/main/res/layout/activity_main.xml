@@ -7,41 +7,65 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eTxtLayoutTime1"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/txtTime1ConstraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/InnerConstraintLayout"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/switchConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:errorEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eTxtTime1"
-            android:layout_width="match_parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/eTxtLayoutTime1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:autofillHints="@string/eTxtTimeHint"
-            android:ems="10"
-            android:inputType="time"
-            android:textSize="18sp"
-            android:maxLength="8"
-            android:hint="@string/eTxtTime1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/eTxtTimeHint"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/eTxtTime1"
+                android:inputType="time"
+                android:maxLength="8"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnClear1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:drawable/ic_notification_clear_all"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toEndOf="@+id/eTxtLayoutTime1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.307" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/InnerConstraintLayout"
+        android:id="@+id/switchConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/eTxtLayoutTime2"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/txtTime2ConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eTxtLayoutTime1">
+        app:layout_constraintTop_toBottomOf="@+id/txtTime1ConstraintLayout">
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchSign"
@@ -51,19 +75,20 @@
             android:text="@string/SwitchPlus"
             android:textOff="@string/Minus"
             android:textOn="@string/Plus"
-            app:showText="true"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:theme="@style/SignSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:showText="true" />
 
         <ImageButton
             android:id="@+id/imgBtnChange"
-            android:layout_width="69dp"
-            android:layout_height="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/Reverse"
+            android:rotation="90"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/switchSign"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,28 +96,52 @@
             app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eTxtLayoutTime2"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/txtTime2ConstraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnCalculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InnerConstraintLayout"
-        app:errorEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eTxtTime2"
+        app:layout_constraintTop_toBottomOf="@+id/switchConstraintLayout">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/eTxtLayoutTime2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/eTxtTimeHint"
-            android:ems="10"
-            android:maxLength="8"
-            android:gravity="center"
-            android:inputType="time"
-            android:textSize="18sp"
-            android:hint="@string/eTxtTime2" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtTime2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/eTxtTimeHint"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/eTxtTime2"
+                android:inputType="time"
+                android:maxLength="8"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnClear2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:drawable/ic_notification_clear_all"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toEndOf="@+id/eTxtLayoutTime2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.307" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnCalculate"
@@ -101,24 +150,61 @@
         android:layout_marginVertical="10dp"
         android:maxLength="8"
         android:text="@string/btnResult"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/txtViewResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eTxtLayoutTime2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTime2ConstraintLayout" />
 
     <TextView
         android:id="@+id/txtViewResult"
+        style="@style/Theme.TimeCalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:maxLength="8"
+        android:layout_marginVertical="15dp"
         android:ems="10"
-        android:textSize="18sp"
         android:gravity="center"
         android:hint="@string/eTxtResult"
+        android:maxLength="8"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCalculate" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCopy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnCopy1"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
+        app:srcCompat="?attr/actionModeCopyDrawable" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCopy1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnCopy"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnCopy2"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCopy2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnCopy1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
