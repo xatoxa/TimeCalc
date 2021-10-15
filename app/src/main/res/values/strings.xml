@@ -11,4 +11,7 @@
     <string name="eTxtTime1">Введите время 1</string>
     <string name="eTxtTime2">Введите время 2</string>
     <string name="ClearField">Очистить поле</string>
+    <string name="btnCopy">Copy</string>
+    <string name="btnCopyTo1">Copy to 1</string>
+    <string name="btnCopyTo2">Copy to 2</string>
 </resources>

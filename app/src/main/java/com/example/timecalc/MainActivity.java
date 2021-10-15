@@ -7,17 +7,22 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
@@ -30,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText eTxtTime1, eTxtTime2;
     TextView txtViewResult;
     SwitchCompat switchSign;
-    ImageButton imgBtnChange, imgBtnCopy;
-    Button btnCalculate, btnClear1, btnClear2;
+    Button btnCalculate, btnClear1, btnClear2, btnCopy, btnCopyTo1, btnCopyTo2, btnChange;
     boolean can_calculate;
 
     @Override
@@ -39,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //инициализация
+        //инициализация объектов
         init();
+
+        //инициализация анимаций
+        final Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate_btn_change);
+        final Animation animAlphaDesc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_descent);
+        final Animation animAlphaAsc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_ascent);
 
         //смена названия и знака операции
         switchSign.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -56,12 +65,68 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //ротация текстовых полей 1 и 2
-        imgBtnChange.setOnClickListener(new View.OnClickListener() {
+        btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strTemp = eTxtTime1.getText().toString();
-                eTxtTime1.setText(eTxtTime2.getText());
-                eTxtTime2.setText(strTemp);
+                if (!(eTxtTime1.getText().toString().isEmpty() && eTxtTime2.getText().toString().isEmpty())) {
+                    //перевернуть кнопку
+                    v.startAnimation(animRotate);
+
+                    //замена "пузырьком"
+                    String strTemp = eTxtTime1.getText().toString();
+                    eTxtTime1.setText(eTxtTime2.getText());
+                    eTxtTime2.setText(strTemp);
+                }
+            }
+        });
+
+        //скрытие кнопки очитстить1
+        eTxtTime1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0) {
+                    //btnClear1.setAnimation(animAlphaAsc);
+                    btnClear1.setVisibility(View.VISIBLE);
+                }
+                else {
+                    //btnClear1.setAnimation(animAlphaDesc);
+                    btnClear1.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //скрытие кнопки очистить2
+        eTxtTime2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0) {
+                    //btnClear2.setAnimation(animAlphaAsc);
+                    btnClear2.setVisibility(View.VISIBLE);
+                }
+                else {
+                    //btnClear2.setAnimation(animAlphaDesc);
+                    btnClear2.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -81,12 +146,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //кнопка копировать в буфер обмена
-        imgBtnCopy.setOnClickListener(new View.OnClickListener() {
+        btnCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("TextView", txtViewResult.getText().toString());
                 clipboard.setPrimaryClip(clip);
+            }
+        });
+
+        //кнопка копировать в editText1
+        btnCopyTo1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eTxtTime1.setText(txtViewResult.getText());
+            }
+        });
+
+        //кнопка копировать в editText2
+        btnCopyTo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eTxtTime2.setText(txtViewResult.getText());
             }
         });
 
@@ -134,18 +215,21 @@ public class MainActivity extends AppCompatActivity {
 
                     LocalTime time1 = LocalTime.parse(eTxtTime1.getText().toString());
                     String[] strTime2 = eTxtTime2.getText().toString().split(":");                  //разбивка на чч:мм:сс
+                    LocalTime timeRes;
                     if (switchSign.isChecked()){                                                          //+
-                        LocalTime timeRes = time1.plusHours(Long.parseLong(strTime2[0]));
+                        timeRes = time1.plusHours(Long.parseLong(strTime2[0]));
                         timeRes = timeRes.plusMinutes(Long.parseLong(strTime2[1]));
                         timeRes = timeRes.plusSeconds(Long.parseLong(strTime2[2]));
-                        txtViewResult.setText(timeRes.toString());
                     }
-                    else{                                                               //-
-                        LocalTime timeRes = time1.minusHours(Long.parseLong(strTime2[0]));
+                    else{                                                                                   //-
+                        timeRes = time1.minusHours(Long.parseLong(strTime2[0]));
                         timeRes = timeRes.minusMinutes(Long.parseLong(strTime2[1]));
                         timeRes = timeRes.minusSeconds(Long.parseLong(strTime2[2]));
-                        txtViewResult.setText(timeRes.toString());
                     }
+                    if (timeRes.getSecond() == 0)
+                        txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString() + ":00");
+                    else
+                        txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString());
                 }
             }
         });
@@ -184,8 +268,10 @@ public class MainActivity extends AppCompatActivity {
         eTxtTime2 = findViewById(R.id.eTxtTime2);
         txtViewResult = findViewById(R.id.txtViewResult);
         switchSign = findViewById(R.id.switchSign);
-        imgBtnChange = findViewById(R.id.imgBtnChange);
-        imgBtnCopy = findViewById(R.id.imgBtnCopy);
+        btnChange = findViewById(R.id.btnChange);
+        btnCopy = findViewById(R.id.btnCopy);
+        btnCopyTo1 = findViewById(R.id.btnCopyTo1);
+        btnCopyTo2 = findViewById(R.id.btnCopyTo2);
         btnCalculate = findViewById(R.id.btnCalculate);
         btnClear1 = findViewById(R.id.btnClear1);
         btnClear2 = findViewById(R.id.btnClear2);

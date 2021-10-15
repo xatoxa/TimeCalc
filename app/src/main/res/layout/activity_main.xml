@@ -15,6 +15,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/switchConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed">
@@ -47,12 +48,27 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@android:drawable/ic_notification_clear_all"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toEndOf="@+id/eTxtLayoutTime1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.307" />
+
+        <Button
+            android:id="@+id/btnPasteTo1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/actionModeCloseDrawable"
+            android:rotation="180"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eTxtLayoutTime1"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.38" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,7 +79,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/txtTime2ConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTime1ConstraintLayout">
 
@@ -83,17 +99,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:showText="true" />
 
-        <ImageButton
-            android:id="@+id/imgBtnChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/btnChange"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:drawable/stat_notify_sync"
             android:contentDescription="@string/Reverse"
             android:rotation="90"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/switchSign"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,12 +152,27 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@android:drawable/ic_notification_clear_all"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toEndOf="@+id/eTxtLayoutTime2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.307" />
+
+        <Button
+            android:id="@+id/btnPasteTo2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/actionModeCloseDrawable"
+            android:rotation="180"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eTxtLayoutTime2"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.38" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -172,39 +204,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCalculate" />
 
-    <ImageButton
-        android:id="@+id/imgBtnCopy"
+    <Button
+        android:id="@+id/btnCopy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/btnCopy"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnCopy1"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
-        app:srcCompat="?attr/actionModeCopyDrawable" />
-
-    <ImageButton
-        android:id="@+id/imgBtnCopy1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgBtnCopy"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnCopy2"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
-
-    <ImageButton
-        android:id="@+id/imgBtnCopy2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgBtnCopy1"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResult" />
+
+    <Button
+        android:id="@+id/btnCopyTo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCopyTo1"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCopy"
         app:layout_constraintTop_toBottomOf="@+id/txtViewResult"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:layout_constraintVertical_bias="0.507" />
+
+    <Button
+        android:id="@+id/btnCopyTo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCopyTo2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCopy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResult" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
