@@ -32,7 +32,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eTxtTime1"
-                android:layout_width="wrap_content"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/eTxtTimeHint"
                 android:ems="10"
@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/SwitchPlus"
+            android:textColor="#A1887F"
             android:textOff="@string/Minus"
             android:textOn="@string/Plus"
             android:textSize="20sp"
@@ -136,7 +137,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eTxtTime2"
-                android:layout_width="wrap_content"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/eTxtTimeHint"
                 android:ems="10"

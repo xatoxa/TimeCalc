@@ -1,8 +1,6 @@
 package com.example.timecalc;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -14,15 +12,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
@@ -31,13 +31,14 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class MainActivity extends AppCompatActivity {
-    TextInputLayout txtInpLayt1, txtInpLayt2;
+    TextInputLayout txtInpLayout1, txtInpLayout2;
     TextInputEditText eTxtTime1, eTxtTime2;
     TextView txtViewResult;
     SwitchCompat switchSign;
     Button btnCalculate, btnClear1, btnClear2, btnCopy, btnCopyTo1, btnCopyTo2, btnChange;
     boolean can_calculate;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,35 +49,30 @@ public class MainActivity extends AppCompatActivity {
 
         //инициализация анимаций
         final Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate_btn_change);
-        final Animation animAlphaDesc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_descent);
-        final Animation animAlphaAsc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_ascent);
+        //final Animation animAlphaDesc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_descent);
+        //final Animation animAlphaAsc = AnimationUtils.loadAnimation(this, R.anim.alpha_btn_ascent);
 
         //смена названия и знака операции
-        switchSign.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (switchSign.isChecked()){
-                    switchSign.setText(R.string.SwitchPlus);
-                }
-                else {
-                    switchSign.setText(R.string.SwitchMinus);
-                }
+        switchSign.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (switchSign.isChecked()){
+                switchSign.setText(R.string.SwitchPlus);
+            }
+            else {
+                switchSign.setText(R.string.SwitchMinus);
             }
         });
 
         //ротация текстовых полей 1 и 2
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(eTxtTime1.getText().toString().isEmpty() && eTxtTime2.getText().toString().isEmpty())) {
-                    //перевернуть кнопку
-                    v.startAnimation(animRotate);
+        btnChange.setOnClickListener(v -> {
+            if (!(Objects.requireNonNull(eTxtTime1.getText()).length() == 0
+                    && Objects.requireNonNull(eTxtTime2.getText()).length() == 0)) {
+                //перевернуть кнопку
+                v.startAnimation(animRotate);
 
-                    //замена "пузырьком"
-                    String strTemp = eTxtTime1.getText().toString();
-                    eTxtTime1.setText(eTxtTime2.getText());
-                    eTxtTime2.setText(strTemp);
-                }
+                //замена "пузырьком"
+                String strTemp = eTxtTime1.getText().toString();
+                eTxtTime1.setText(eTxtTime2.getText());
+                eTxtTime2.setText(strTemp);
             }
         });
 
@@ -131,45 +127,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //кнопки очистки текстовых полей
-        btnClear1.setOnClickListener(new View.OnClickListener() {                                       //текстовое поле 1
-            @Override
-            public void onClick(View v) {
-                eTxtTime1.getText().clear();
-            }
-        });
+        //текстовое поле 1
+        btnClear1.setOnClickListener(v -> Objects.requireNonNull(eTxtTime1.getText()).clear());
 
-        btnClear2.setOnClickListener(new View.OnClickListener() {                                       //текстовое поле 2
-            @Override
-            public void onClick(View v) {
-                eTxtTime2.getText().clear();
-            }
-        });
+        //текстовое поле 2
+        btnClear2.setOnClickListener(v -> Objects.requireNonNull(eTxtTime2.getText()).clear());
 
         //кнопка копировать в буфер обмена
-        btnCopy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("TextView", txtViewResult.getText().toString());
-                clipboard.setPrimaryClip(clip);
-            }
+        btnCopy.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("TextView", txtViewResult.getText().toString());
+            clipboard.setPrimaryClip(clip);
         });
 
         //кнопка копировать в editText1
-        btnCopyTo1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                eTxtTime1.setText(txtViewResult.getText());
-            }
-        });
+        btnCopyTo1.setOnClickListener(v -> eTxtTime1.setText(txtViewResult.getText()));
 
         //кнопка копировать в editText2
-        btnCopyTo2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                eTxtTime2.setText(txtViewResult.getText());
-            }
-        });
+        btnCopyTo2.setOnClickListener(v -> eTxtTime2.setText(txtViewResult.getText()));
 
         //создание маски для текстовых полей
         Slot[] slots1 = new UnderscoreDigitSlotsParser().parseSlots("__:__:__");
@@ -188,49 +163,48 @@ public class MainActivity extends AppCompatActivity {
         eTxtTime1.addTextChangedListener(new TextValidator(eTxtTime1) {
             @Override
             public void validate(TextView textView, String text) {
-                checkTime(text, txtInpLayt1);
+                checkTime(text, txtInpLayout1);
             }
         });
 
         eTxtTime2.addTextChangedListener(new TextValidator(eTxtTime2) {
             @Override
             public void validate(TextView textView, String text) {
-                checkTime(text, txtInpLayt2);
+                checkTime(text, txtInpLayout2);
             }
         });
 
         //нажатие кнопки =
-        btnCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (can_calculate){
-                    //убираем фокус с текстовых полей
-                    eTxtTime1.clearFocus();
-                    eTxtTime2.clearFocus();
+        btnCalculate.setOnClickListener(v -> {
+            if (can_calculate){
+                //убираем фокус с текстовых полей
+                eTxtTime1.clearFocus();
+                eTxtTime2.clearFocus();
 
-                    // сокрытие клавиатуры
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(btnCalculate.getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
+                // сокрытие клавиатуры
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(btnCalculate.getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 
-                    LocalTime time1 = LocalTime.parse(eTxtTime1.getText().toString());
-                    String[] strTime2 = eTxtTime2.getText().toString().split(":");                  //разбивка на чч:мм:сс
-                    LocalTime timeRes;
-                    if (switchSign.isChecked()){                                                          //+
-                        timeRes = time1.plusHours(Long.parseLong(strTime2[0]));
-                        timeRes = timeRes.plusMinutes(Long.parseLong(strTime2[1]));
-                        timeRes = timeRes.plusSeconds(Long.parseLong(strTime2[2]));
-                    }
-                    else{                                                                                   //-
-                        timeRes = time1.minusHours(Long.parseLong(strTime2[0]));
-                        timeRes = timeRes.minusMinutes(Long.parseLong(strTime2[1]));
-                        timeRes = timeRes.minusSeconds(Long.parseLong(strTime2[2]));
-                    }
-                    if (timeRes.getSecond() == 0)
-                        txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString() + ":00");
-                    else
-                        txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString());
+                LocalTime time1 = LocalTime.
+                        parse(Objects.requireNonNull(eTxtTime1.getText()).toString());
+                String[] strTime2 = Objects.
+                        requireNonNull(eTxtTime2.getText()).toString().split(":");                  //разбивка на чч:мм:сс
+                LocalTime timeRes;
+                if (switchSign.isChecked()){                                                          //+
+                    timeRes = time1.plusHours(Long.parseLong(strTime2[0]));
+                    timeRes = timeRes.plusMinutes(Long.parseLong(strTime2[1]));
+                    timeRes = timeRes.plusSeconds(Long.parseLong(strTime2[2]));
                 }
+                else{                                                                                   //-
+                    timeRes = time1.minusHours(Long.parseLong(strTime2[0]));
+                    timeRes = timeRes.minusMinutes(Long.parseLong(strTime2[1]));
+                    timeRes = timeRes.minusSeconds(Long.parseLong(strTime2[2]));
+                }
+                if (timeRes.getSecond() == 0)
+                    txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString() + ":00");
+                else
+                    txtViewResult.setText(timeRes.truncatedTo(ChronoUnit.SECONDS).toString());
             }
         });
     }
@@ -262,8 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
     //инициализация объектов
     protected void init(){
-        txtInpLayt1 = findViewById(R.id.eTxtLayoutTime1);
-        txtInpLayt2 = findViewById(R.id.eTxtLayoutTime2);
+        txtInpLayout1 = findViewById(R.id.eTxtLayoutTime1);
+        txtInpLayout2 = findViewById(R.id.eTxtLayoutTime2);
         eTxtTime1 = findViewById(R.id.eTxtTime1);
         eTxtTime2 = findViewById(R.id.eTxtTime2);
         txtViewResult = findViewById(R.id.txtViewResult);
